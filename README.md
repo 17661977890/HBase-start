@@ -3,6 +3,9 @@
 
 
 ## 官网：https://hbase.apache.org/book.html
+## 参考链接： 
+  * https://github.com/17661977890/interview-docs/blob/master/docs/hadoop/hbase01.md
+  * https://github.com/17661977890/technology-talk/blob/master/middle-software/Hbase.md
 
 #### 遇到的问题及解决方案：
 
