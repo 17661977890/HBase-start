@@ -66,6 +66,17 @@ Use "help" to get list of supported commands.
 Use "exit" to quit this interactive shell.
 Version 1.4.10, r76ab087819fe82ccf6f531096e18ad1bed079651, Wed Jun  5 16:48:11 PDT 2019
 
-# 解决方案： 网上百度，说是删除冲突的jar，我没操作，担心出问题还要备份，貌似不影响程序。
+# 解决方案： 网上百度，说是删除冲突的jar，我没操作，担心出问题还要备份，貌似不影响程序。 看着不爽就到目录下 rm -f ...jar
 ```
 * (4) 启动成功以后，可以进入shell命令窗口，但是web ui 页面打不开，默认端口，配置端口都不行，未解决。。。
+
+* (5) 停止hbase时，报一个文件不存在：
+
+```bash
+stopping hbasecat: /tmp/hbase-root-master.pid: No such file or directory
+
+# 默认情况下hbase的pid文件保存在/tmp目录下，/tmp目录下的文件很容易丢失，所以造成停止集群的时候出现上述错误。解决方式是在hbase-env.sh中修改pid文件  # 的存放路径，配置项如下所示：
+
+# The directory where pid files are stored. /tmp by default.
+export HBASE_PID_DIR=/var/hadoop/pids 
+```
