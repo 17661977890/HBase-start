@@ -7,7 +7,12 @@
   * https://github.com/17661977890/interview-docs/blob/master/docs/hadoop/hbase01.md
   * https://github.com/17661977890/technology-talk/blob/master/middle-software/Hbase.md
 
-#### 遇到的问题及解决方案：
+## hbase shell 常用命令以及数据模型：
+  * http://c.biancheng.net/view/3587.html  https://cloud.tencent.com/developer/article/1336648
+  * http://c.biancheng.net/view/3586.html
+  
+
+#### 单机搭建遇到的问题及解决方案：
 
 * (1) 启动弹出警告 jvm问题：
 
