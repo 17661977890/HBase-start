@@ -11,6 +11,7 @@
   * http://c.biancheng.net/view/3587.html  https://cloud.tencent.com/developer/article/1336648
   * http://c.biancheng.net/view/3586.html
   
+  * 貌似没有修改列族名的命令，而且删除列族，如果该表只有一个列族是不能删的。
 
 #### 单机搭建遇到的问题及解决方案：
 
