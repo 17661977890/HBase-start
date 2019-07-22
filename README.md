@@ -80,3 +80,4 @@ stopping hbasecat: /tmp/hbase-root-master.pid: No such file or directory
 # The directory where pid files are stored. /tmp by default.
 export HBASE_PID_DIR=/var/hadoop/pids 
 ```
+* （6）安装官网进行伪分布式搭建，jps显示进程了，但是 问题： 并没有在hdfs 创建hbase文件，web ui依然打不开
