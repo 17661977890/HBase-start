@@ -80,4 +80,45 @@ stopping hbasecat: /tmp/hbase-root-master.pid: No such file or directory
 # The directory where pid files are stored. /tmp by default.
 export HBASE_PID_DIR=/var/hadoop/pids 
 ```
-* （6）安装官网进行伪分布式搭建，jps显示进程了，但是 问题： 并没有在hdfs 创建hbase文件，web ui依然打不开
+* （6）安装官网进行伪分布式搭建，jps显示进程了，但是等一会Hmaster没有了 问题： 并且没有在hdfs 创建hbase文件，web ui依然打不开
+```bash 
+#查看日志报错如下：貌似时zookeeper的问题。暂时这里不解决了，毕竟时运维干的事，我们主要增加了解。
+java.net.ConnectException: 拒绝连接
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at org.apache.zookeeper.ClientCnxnSocketNIO.doTransport(ClientCnxnSocketNIO.java:361)
+	at org.apache.zookeeper.ClientCnxn$SendThread.run(ClientCnxn.java:1141)
+2019-07-22 11:45:30,197 ERROR [main] zookeeper.RecoverableZooKeeper: ZooKeeper create failed after 4 attempts
+2019-07-22 11:45:31,197 INFO  [main-SendThread(sun.com:2181)] zookeeper.ClientCnxn: Opening socket connection to server sun.com/192.168.2.31:2181. Will not attempt to authenticate using SASL (unknown error)
+2019-07-22 11:45:31,300 INFO  [main] zookeeper.ZooKeeper: Session: 0x0 closed
+2019-07-22 11:45:31,300 ERROR [main] master.HMasterCommandLine: Master exiting
+java.lang.RuntimeException: Failed construction of Master: class org.apache.hadoop.hbase.master.HMaster. 
+	at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:2818)
+	at org.apache.hadoop.hbase.master.HMasterCommandLine.startMaster(HMasterCommandLine.java:234)
+	at org.apache.hadoop.hbase.master.HMasterCommandLine.run(HMasterCommandLine.java:138)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
+	at org.apache.hadoop.hbase.util.ServerCommandLine.doMain(ServerCommandLine.java:127)
+	at org.apache.hadoop.hbase.master.HMaster.main(HMaster.java:2828)
+Caused by: org.apache.hadoop.hbase.ZooKeeperConnectionException: master:160000x0, quorum=sun.com:2181, baseZNode=/hbase Unexpected KeeperException creating base node
+	at org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher.createBaseZNodes(ZooKeeperWatcher.java:214)
+	at org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher.<init>(ZooKeeperWatcher.java:185)
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.<init>(HRegionServer.java:611)
+	at org.apache.hadoop.hbase.master.HMaster.<init>(HMaster.java:449)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.apache.hadoop.hbase.master.HMaster.constructMaster(HMaster.java:2811)
+	... 5 more
+Caused by: org.apache.zookeeper.KeeperException$ConnectionLossException: KeeperErrorCode = ConnectionLoss for /hbase
+	at org.apache.zookeeper.KeeperException.create(KeeperException.java:99)
+	at org.apache.zookeeper.KeeperException.create(KeeperException.java:51)
+	at org.apache.zookeeper.ZooKeeper.create(ZooKeeper.java:783)
+	at org.apache.hadoop.hbase.zookeeper.RecoverableZooKeeper.createNonSequential(RecoverableZooKeeper.java:565)
+	at org.apache.hadoop.hbase.zookeeper.RecoverableZooKeeper.create(RecoverableZooKeeper.java:544)
+	at org.apache.hadoop.hbase.zookeeper.ZKUtil.createWithParents(ZKUtil.java:1218)
+	at org.apache.hadoop.hbase.zookeeper.ZKUtil.createWithParents(ZKUtil.java:1196)
+	at org.apache.hadoop.hbase.zookeeper.ZooKeeperWatcher.createBaseZNodes(ZooKeeperWatcher.java:201)
+	... 13 more
+2019-07-22 11:45:31,302 INFO  [main-EventThread] zookeeper.ClientCnxn: EventThread shut down for session: 0x0
+```
